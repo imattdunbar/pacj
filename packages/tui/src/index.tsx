@@ -43,7 +43,12 @@ export async function runCommandThenClose(cmd: string[]) {
   }, 500)
 }
 
-await AppState.init()
+try {
+  await AppState.init()
+} catch (e) {
+  console.error(e)
+  runCommandThenClose(['echo', 'Failed to process package.json'])
+}
 
 function App() {
   const view = AppState.use((s) => s.view)
@@ -52,15 +57,9 @@ function App() {
   const textAreaRef = useRef<TextareaRenderable | null>(null)
 
   const handleSelect = async (option: SelectOption) => {
-    if (!option) return
-
     if (view === 'Main') {
       setView(option.name as AppView)
       return
-    }
-
-    if (view === 'Remove Package') {
-      await runCommandThenClose(['bun', 'uninstall', option.name])
     }
 
     if (view === 'List Packages') {

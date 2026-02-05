@@ -52,8 +52,8 @@ const RemovePackageSelect = () => {
   }
 
   const finishSelection = async () => {
-    console.log(Array.from(selected).join(','))
-    await runCommandThenClose(['echo', Array.from(selected).join(',')])
+    const selectedPackages = Array.from(selected)
+    await runCommandThenClose(['bun', 'uninstall', ...selectedPackages])
   }
 
   //

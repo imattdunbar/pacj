@@ -21,17 +21,25 @@ type AppState = {
   dependencies: PackageDependency[]
   scripts: PackageScript[]
   view: AppView
+  userInput: string
 }
 
 const Store = createStore<AppState>({
   dependencies: [],
   scripts: [],
-  view: 'Main'
+  view: 'Main',
+  userInput: ''
 })
 
 const setView = (newView: AppView) => {
   Store.update({
     view: newView
+  })
+}
+
+const setUserInput = (newText: string) => {
+  Store.update({
+    userInput: newText
   })
 }
 
@@ -75,78 +83,75 @@ const getFilteredOptions = (userInput: string): SelectOption[] => {
 }
 
 const init = async () => {
-  try {
-    const rootPath = process.cwd()
+  const rootPath = process.cwd()
 
-    const packageJson: any = await Bun.file(`${rootPath}/package.json`).json()
+  const packageJson: any = await Bun.file(`${rootPath}/package.json`).json()
 
-    const packageJsonKeySchema = z.record(z.string(), z.string()).optional()
+  const packageJsonKeySchema = z.record(z.string(), z.string()).optional()
 
-    const parsedJson = z
-      .object({
-        scripts: packageJsonKeySchema,
-        devDependencies: packageJsonKeySchema,
-        dependencies: packageJsonKeySchema,
-        peerDependencies: packageJsonKeySchema
-      })
-      .parse(packageJson)
+  const parsedJson = z
+    .object({
+      scripts: packageJsonKeySchema,
+      devDependencies: packageJsonKeySchema,
+      dependencies: packageJsonKeySchema,
+      peerDependencies: packageJsonKeySchema
+    })
+    .parse(packageJson)
 
-    let scripts: PackageScript[] = []
-    if (parsedJson.scripts) {
-      scripts = Object.entries(parsedJson.scripts).map(([name, content]) => {
-        return {
-          name,
-          content
-        }
-      })
-    }
-
-    let devDeps: PackageDependency[] = []
-
-    if (parsedJson.devDependencies) {
-      devDeps = Object.entries(parsedJson.devDependencies).map(([name, version]) => {
-        return {
-          name,
-          version,
-          type: 'DEV'
-        }
-      })
-    }
-
-    let peerDeps: PackageDependency[] = []
-
-    if (parsedJson.peerDependencies) {
-      peerDeps = Object.entries(parsedJson.peerDependencies).map(([name, version]) => {
-        return {
-          name,
-          version,
-          type: 'PEER'
-        }
-      })
-    }
-
-    let hardDeps: PackageDependency[] = []
-
-    if (parsedJson.dependencies) {
-      hardDeps = Object.entries(parsedJson.dependencies).map(([name, version]) => {
-        return {
-          name,
-          version,
-          type: 'HARD'
-        }
-      })
-    }
-
-    const newState: AppState = {
-      dependencies: [...devDeps, ...peerDeps, ...hardDeps],
-      scripts,
-      view: 'Main'
-    }
-
-    Store.setState(newState, true)
-  } catch (e) {
-    runCommandThenClose(['echo', 'Failed to process package.json'])
+  let scripts: PackageScript[] = []
+  if (parsedJson.scripts) {
+    scripts = Object.entries(parsedJson.scripts).map(([name, content]) => {
+      return {
+        name,
+        content
+      }
+    })
   }
+
+  let devDeps: PackageDependency[] = []
+
+  if (parsedJson.devDependencies) {
+    devDeps = Object.entries(parsedJson.devDependencies).map(([name, version]) => {
+      return {
+        name,
+        version,
+        type: 'DEV'
+      }
+    })
+  }
+
+  let peerDeps: PackageDependency[] = []
+
+  if (parsedJson.peerDependencies) {
+    peerDeps = Object.entries(parsedJson.peerDependencies).map(([name, version]) => {
+      return {
+        name,
+        version,
+        type: 'PEER'
+      }
+    })
+  }
+
+  let hardDeps: PackageDependency[] = []
+
+  if (parsedJson.dependencies) {
+    hardDeps = Object.entries(parsedJson.dependencies).map(([name, version]) => {
+      return {
+        name,
+        version,
+        type: 'HARD'
+      }
+    })
+  }
+
+  const newState: AppState = {
+    dependencies: [...devDeps, ...peerDeps, ...hardDeps],
+    scripts,
+    view: 'Main',
+    userInput: ''
+  }
+
+  Store.setState(newState, true)
 }
 
 export default {
@@ -156,5 +161,6 @@ export default {
   current: Store.current,
   getOptions,
   getFilteredOptions,
-  setView
+  setView,
+  setUserInput
 }

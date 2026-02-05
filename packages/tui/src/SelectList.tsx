@@ -4,10 +4,8 @@ import type { SelectOption } from '@opentui/core'
 import { useState } from 'react'
 
 const SelectList = (props: { showDescription: boolean; onSelect: (option: SelectOption) => void }) => {
-  // const userInput = AppState.use((s) => s.userInput)
-  // const setUserInput = AppState.setUserFilterText
-
-  const [userInput, setUserInput] = useState('')
+  const userInput = AppState.use((s) => s.userInput)
+  const setUserInput = AppState.setUserInput
 
   useKeyboard((key) => {
     const hasModifier = key.ctrl || key.meta || key.option
@@ -62,6 +60,7 @@ const SelectList = (props: { showDescription: boolean; onSelect: (option: Select
         onSelect={(_index, option) => {
           if (!option) return
           props.onSelect(option)
+          AppState.setUserInput('')
         }}
       />
     </box>
