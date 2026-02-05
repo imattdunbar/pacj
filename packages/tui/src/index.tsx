@@ -84,7 +84,7 @@ function App() {
       justifyContent="center"
       backgroundColor="transparent"
     >
-      <box flexDirection="column" gap={1} width={'100%'} padding={2}>
+      <box flexDirection="column" gap={1} width={'100%'} maxWidth={80} padding={2}>
         {(view === 'Main' || view === 'List Packages' || view === 'Run Script') && (
           <SelectList
             showDescription={view !== 'Main'}
