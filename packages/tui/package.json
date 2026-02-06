@@ -1,7 +1,7 @@
 {
   "name": "pacj",
   "module": "src/index.tsx",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "author": "Matt Dunbar",
   "homepage": "https://pacj.dev",
