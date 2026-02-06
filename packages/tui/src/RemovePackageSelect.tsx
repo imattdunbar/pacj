@@ -56,8 +56,6 @@ const RemovePackageSelect = () => {
     await runCommandThenClose(['bun', 'uninstall', ...selectedPackages])
   }
 
-  //
-
   return (
     <box flexDirection="column" alignItems="center" justifyContent="center" width="100%">
       <scrollbox

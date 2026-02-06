@@ -1,7 +1,6 @@
 import { useKeyboard } from '@opentui/react'
 import AppState from './AppState'
 import type { SelectOption } from '@opentui/core'
-import { useState } from 'react'
 
 const SelectList = (props: { showDescription: boolean; onSelect: (option: SelectOption) => void }) => {
   const userInput = AppState.use((s) => s.userInput)

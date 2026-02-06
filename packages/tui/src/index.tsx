@@ -84,7 +84,14 @@ function App() {
       justifyContent="center"
       backgroundColor="transparent"
     >
-      <box flexDirection="column" gap={1} width={'100%'} maxWidth={80} padding={2}>
+      <box flexDirection="column" gap={1} width={'100%'} maxWidth={120} padding={2}>
+        {view === 'Main' && (
+          <box width="100%" alignItems="center" paddingBottom={1}>
+            <box flexDirection="row" alignItems="center" justifyContent="center" gap={4}>
+              <ascii-font text="pacj" font="slick" color="white" />
+            </box>
+          </box>
+        )}
         {(view === 'Main' || view === 'List Packages' || view === 'Run Script') && (
           <SelectList
             showDescription={view !== 'Main'}
@@ -133,7 +140,8 @@ AppRenderer.keyInput.on('keypress', (key) => {
     process.exit(0)
   }
 
-  if (key.option && DEV) {
+  // Need option or meta (option in tmux is recognized as meta)
+  if ((key.option || key.meta) && DEV) {
     if (key.name === 'd') {
       AppRenderer.console.toggle()
     }

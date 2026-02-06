@@ -3,13 +3,32 @@
   "module": "src/index.tsx",
   "version": "0.0.1",
   "type": "module",
-  "private": false,
+  "author": "Matt Dunbar",
+  "homepage": "https://pacj.dev",
+  "description": "TUI app for managing package.json",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imattdunbar/pacj.git"
+  },
+  "keywords": [
+    "package.json",
+    "package json manager",
+    "cli",
+    "utility"
+  ],
+  "engines": {
+    "bun": ">=1.1.0"
+  },
   "bin": {
     "pacj": "src/index.tsx"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "DEV=true bun run src/index.tsx",
-    "publish": "bun publish --access public"
+    "publish": "bun publish"
   },
   "devDependencies": {
     "@types/bun": "catalog:",
