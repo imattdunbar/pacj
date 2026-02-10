@@ -22,10 +22,10 @@ export default defineConfig({
       }
     }),
     nitro({
-      preset: 'vercel'
-      // output: {
-      //   dir: ''
-      // }
+      preset: 'vercel',
+      output: {
+        dir: '../../.vercel/output'
+      }
     }),
     viteReact()
   ]
