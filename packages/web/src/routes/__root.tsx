@@ -10,7 +10,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark bg-black">
       <head>
         <HeadContent />
       </head>

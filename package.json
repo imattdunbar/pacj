@@ -16,6 +16,13 @@
     "tui": "bun --cwd=packages/tui",
     "web": "bun --cwd=packages/web"
   },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none",
+    "semi": false,
+    "printWidth": 120
+  },
   "catalog": {
     "@types/bun": "^1.3.8",
     "typescript": "^5.9.3",
@@ -25,12 +32,5 @@
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "turbo": "^2.8.3"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "none",
-    "semi": false,
-    "printWidth": 120
   }
 }
