@@ -42,17 +42,7 @@ function getDefaultHead(options: {
     ],
     links: [
       { rel: 'stylesheet', href: css },
-      { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
-      { rel: 'icon', href: '/favicon.ico' },
-      {
-        rel: 'shortcut icon',
-        href: '/favicon.ico'
-      },
-      {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        href: '/favicon.svg'
-      },
+      { rel: 'manifest', href: '/site.webmanifest', color: '#ffffff' },
       {
         rel: 'icon',
         type: 'image/png',
@@ -70,9 +60,9 @@ function getDefaultHead(options: {
 
 export function defaultHead() {
   return getDefaultHead({
-    title: 'Template',
-    description: 'Template Description',
-    // ogImage: '/og.png',
-    url: 'https://github.com/imattdunbar'
+    title: 'pacj',
+    description: 'pacj',
+    ogImage: '/pacj.png',
+    url: 'https://github.com/imattdunbar/pacj'
   })
 }
